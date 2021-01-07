@@ -14,7 +14,6 @@ def get_sites(network):
 
 		s= pd.read_csv(sites) # dataframe containing sites & site info (e.g. lat/long, etc)
 
-		print(s.columns)
 		for i in range(0,len(s)):
 			print(s.siteid[i], s.siteName[i], ', ', s.state[i])
 
@@ -64,51 +63,50 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='')
 	#       use conditions (http://nadp.slh.wisc.edu/nadp/useConditions.aspx)
 	#
 	# -------------------Inputs: ----------------------------------------------------------
-	#		siteid   - String corresponding to the NADP site ID you want data from or 'All' if
+	#       siteid   - String corresponding to the NADP site ID you want data from or 'All' if
 	#					you'd like to get data from all sites. Individual site names are typically
-	#				    len 4 strings like 'WY99'. Will error if site name doesn't exist. 
+	#					len 4 strings like 'WY99'. Will error if site name doesn't exist. 
 	#
 	#       network   - String containing which network you'd like to get data from. 
-	# 					Will push error if invalid network name. Valid options are: 
-	#						'NTN'  : National Trends network data 
-	#						'MDN' : Mercury Deposition Network. 
+	#					Will push error if invalid network name. Valid options are: 
+	#                       'NTN'   : National Trends network data 
+	#                       'MDN'   : Mercury Deposition Network. 
 	#                       'AIRMoN': Atmospheric Integrated Research Monitoring Network
 	#                       'AMNet' : Atmospheric Mercury Network
-	#                       'AMoN' : Ammonia Monitoring Network
+	#                       'AMoN'  : Ammonia Monitoring Network
 	#
 	#       freq     - String containing the frequency of the data you'd like to retreive 
-	#					for this site. Valid options are dependent on which network is chosen. 
+	#                   for this site. Valid options are dependent on which network is chosen. 
 	#                   Only 1 data frequency is available for AIRMon, AMNet, and AMoN. Therefore
 	#                   this input is redundant for those networks. If data network is 
 	#                   NTN or MDN, then valid options are as follows with brackets indicating the 
-	#					supported networks for each data frequency. Valid options are as follows:
+	#                   supported networks for each data frequency. Valid options are as follows:
 	#
-	#						'weekly' 		  : weekly deposition data 	[NTN, MDN, ] ** Default if no freq is passed.**  
-	#						'annual-cal-dep'  : annual deposition on calendar year 	[NTN, MDN]			
-	#						'monthly'         : average monthly deposition data [NTN only]  
-	#                       'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
-	#						'annual-wy'       : annual deposition on water year  [NTN only]  
-	#						'seasonal-conc'   : Pecip weighted seasonal concentrations [NTN only]  
-	#						'seasonal-dep'    : Seasonal deposition [NTN only] 
+	#                      'weekly'          : weekly deposition data [NTN, MDN] ** Default if no freq is passed.**  
+	#                      'annual-cal-dep'  : annual deposition on calendar year [NTN, MDN]			
+	#                      'monthly'         : average monthly deposition data [NTN only]  
+	#                      'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
+	#                      'annual-wy'       : annual deposition on water year  [NTN only]  
+	#                      'seasonal-conc'   : Pecip weighted seasonal concentrations [NTN only]  
+	#                      'seasonal-dep'    : Seasonal deposition [NTN only] 
 	# 
 	#     valstring   - Redundant input unless your network is 'MDN'. Options are: 
-	#					''   - An empty string which will return only data which the NADP has 
+	#                    ''   - An empty string which will return only data which the NADP has 
 	#                         determined to be valid. This is default. 
 	#                   '-i'  - A string that will return all data (valid and invalid). 
 	#                           These samples can be identified by the qrCode field, 
 	#                           which will have a value of "C".
-
+	#
 	#     savepath    - Path to a driectory in which to save a pickle of this datafram. Default is empty which 
-	#					does not save a pickle. Name of pickle file is auto generated based on network, siteid, 
+	#                   does not save a pickle. Name of pickle file is auto generated based on network, siteid, 
 	#                   and frequency of selected data. 
-
+	#
 	# -------------------Output: --------------------------------------------------------------- 
 	#
 	#      df       - pandas dataframe containing all csv data from the NADP. 
 	#     
 	#      NADP_NTN_weekly_WA99.pkl  - (OPTIONAL) a pickle file containing the dataframe, df, if a 
-	#                                  savepath was passed as input.  
-	# 
+	#                                  savepath was passed as input. 
 	# ---------------- Examples: --------------------------------------------------------------
 	#
 	#  out= indv_NADP_site_grabber('WY99', 'NTN', freq='monthly') # monthly avg'd data for site WY99 from NTN 
@@ -186,7 +184,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='')
 				# If the user has passed a savepath variable, check to see if its valid, and save data as a pickle.  
 				isValidPath = os.path.isdir(savepath)  
 				if isValidPath ==True and len(savepath)>=1: 
-					name='\\NADP+'+network+'_'+freq+'_'+siteid+'.pkl'
+					name='\\NADP_'+network+'_'+freq+'_'+siteid+'.pkl'
 					df_new.to_pickle(savepath+name)
 					print('File saved as: '+ savepath+name)
 				 
