@@ -18,41 +18,41 @@ Function to directly scrape data for indivudal sites or All sites from NADP webs
 ```
 # -------------------Inputs: ----------------------------------------------------------
 #       siteid   - String corresponding to the NADP site ID you want data from or 'All' if
-#				you'd like to get data from all sites. Individual site names are typically
-#				len 4 strings like 'WY99'. Will error if site name doesn't exist. 
+#		you'd like to get data from all sites. Individual site names are typically
+#		len 4 strings like 'WY99'. Will error if site name doesn't exist. 
 #
 #       network   - String containing which network you'd like to get data from. 
-# 				Will push error if invalid network name. Valid options are: 
-#				    'NTN'   : National Trends network data 
-#				    'MDN'   : Mercury Deposition Network. 
+#		Will push error if invalid network name. Valid options are: 
+#                       'NTN'   : National Trends network data 
+#                       'MDN'   : Mercury Deposition Network. 
 #                       'AIRMoN': Atmospheric Integrated Research Monitoring Network
 #                       'AMNet' : Atmospheric Mercury Network
 #                       'AMoN'  : Ammonia Monitoring Network
 #
 #       freq     - String containing the frequency of the data you'd like to retreive 
-#				for this site. Valid options are dependent on which network is chosen. 
+#                   for this site. Valid options are dependent on which network is chosen. 
 #                   Only 1 data frequency is available for AIRMon, AMNet, and AMoN. Therefore
 #                   this input is redundant for those networks. If data network is 
 #                   NTN or MDN, then valid options are as follows with brackets indicating the 
-#					supported networks for each data frequency. Valid options are as follows:
+#                   supported networks for each data frequency. Valid options are as follows:
 #
-#						'weekly' 		   : weekly deposition data 	[NTN, MDN, ] ** Default if no freq is passed.**  
-#						'annual-cal-dep'  : annual deposition on calendar year [NTN, MDN]			
-#						'monthly'         : average monthly deposition data [NTN only]  
-#                             'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
-#						'annual-wy'       : annual deposition on water year  [NTN only]  
-#						'seasonal-conc'   : Pecip weighted seasonal concentrations [NTN only]  
-#						'seasonal-dep'    : Seasonal deposition [NTN only] 
+#                      'weekly' 		   : weekly deposition data 	[NTN, MDN, ] ** Default if no freq is passed.**  
+#                      'annual-cal-dep'  : annual deposition on calendar year [NTN, MDN]			
+#                      'monthly'         : average monthly deposition data [NTN only]  
+#                      'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
+#                      'annual-wy'       : annual deposition on water year  [NTN only]  
+#                      'seasonal-conc'   : Pecip weighted seasonal concentrations [NTN only]  
+#                      'seasonal-dep'    : Seasonal deposition [NTN only] 
 # 
 #     valstring   - Redundant input unless your network is 'MDN'. Options are: 
-#				 ''   - An empty string which will return only data which the NADP has 
+#                   ''   - An empty string which will return only data which the NADP has 
 #                         determined to be valid. This is default. 
 #                   '-i'  - A string that will return all data (valid and invalid). 
 #                           These samples can be identified by the qrCode field, 
 #                           which will have a value of "C".
 #
 #     savepath    - Path to a driectory in which to save a pickle of this datafram. Default is empty which 
-#					does not save a pickle. Name of pickle file is auto generated based on network, siteid, 
+#                   does not save a pickle. Name of pickle file is auto generated based on network, siteid, 
 #                   and frequency of selected data. 
 #
 # -------------------Output: --------------------------------------------------------------- 
