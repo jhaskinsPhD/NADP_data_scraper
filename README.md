@@ -1,14 +1,14 @@
 # NADP_data_grabber
 This repository contains functions to grab data from any Network hosted on the National Atmospheric Deposition Program (http://nadp.slh.wisc.edu/) at any frequency (e.g. weekly, monthly, annual) and easily import it into a pandas dataframe in Python for analysis. Future functionalities may include quick plotting, error removal considering flags, including metadata files supplied by the NADP, and functionalities commonly used to find trends in depositional data. 
 
-### NOTE: 
-Data from NADP/NTN used in published works should abide by the NADP data use conditions (http://nadp.slh.wisc.edu/nadp/useConditions.aspx)
-
 **Requirements:** Python 3
 
 * `numpy`: https://numpy.org/
 * `pandas`: https://pandas.pydata.org/
 * `os`: https://docs.python.org/3/library/os.path.html
+
+### NOTE: 
+Data from NADP/NTN used in published works should abide by the NADP data use conditions (http://nadp.slh.wisc.edu/nadp/useConditions.aspx)
 
 ## Description of Functions Contained Within: 
 ### NADP_data_grabber(siteid, network):
