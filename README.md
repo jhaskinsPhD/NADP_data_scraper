@@ -70,18 +70,31 @@ Function to identify "date like" columns in a dataframe (df) scraped from NADP d
 Function to list valid site names, name of site, and state in a given NADP network. 
 
 ## Examples: 
+
+(1) Print a list of all the sites in the NTN Network: 
 ```
-get_sites('NTN')  # Print a list of all the sites in the NTN network. 
+get_sites('NTN')  
+```
+(2) Get NTN Data from the Davis, CA site,  and make a timeseries of NO3 deposition data. 
+```
+import matplotlib.pyplot as plt
 
-#df= NADP_data_grabber('All', 'NTN') # Get NTN Data from all sites 
+df_indv= NADP_data_grabber('CA88', 'NTN') 
 
+fig, ax = plt.subplots(1,figsize=(8, 8)) # Create a figure and axis. 
+ax.plot(df_indv.dateon, df_indv.NO3) # plot the date on X axis vs. nitrate data on Y axis (units mg/L)
+plt.show() 
+```
+(3) Get weekly NTN data from all the sites, save the data as a pickle at designated path.
+ ```
 path='C:\\Users\\user\\Documents\\myNADPdirectory\\'
-df= NADP_data_grabber('CA88', 'NTN', savepath=path) # Get NTN Data from the Davis, CA site and save the data as a pickle at designated path. 
-
-out= indv_NADP_site_grabber('WY99', 'NTN', freq='monthly') # monthly avg'd data for site WY99 from NTN 
-out= indv_NADP_site_grabber('WY96', 'NTN') # weekly data for site WY99 from NTN (native freq)
-out= indv_NADP_site_grabber('MS12', 'AMNet') # hourly data for site MS12 from AMNet  (native freq)
-out= indv_NADP_site_grabber('CA75', 'MDN', freq='annual-cal-dep', valstring='-i')  
-     # The above example  outputs precip weighted annual avg deposition that includes invalid data points. 
-
+df_all= NADP_data_grabber('All', 'NTN', savepath=path) 
+```
+(4) Other examples: 
+```
+out1= NADP_data_grabber('WY99', 'NTN', freq='monthly') # monthly avg'd data for site WY99 from NTN 
+out2= NADP_data_grabber('WY96', 'NTN') # weekly data for site WY99 from NTN (native freq)
+out3= NADP_data_grabber('MS12', 'AMNet') # hourly data for site MS12 from AMNet  (native freq)
+out4= NADP_data_grabber('CA75', 'MDN', freq='annual-cal-dep', valstring='-i')  
+#         The above example  outputs precip weighted annual avg deposition that includes invalid data points. 
 ```
