@@ -11,10 +11,57 @@ Data from NADP/NTN used in published works should abide by the NADP data use con
 * `os`: https://docs.python.org/3/library/os.path.html
 
 ## Description of Functions Contained Within: 
-### NADP_data_grabber(siteid, network, freq='native', valstring='', savepath=''):
+### NADP_data_grabber(siteid, network):
 
-Function to directly scrape data for indivudal sites or All sites from NADP website at difference time intervals, and return this as a pandas dataframe. Also combines data from site info csv (e.g. site lat, long, county, state, etc.) and data csv into a single data frame. Converts string date-times into pandas datetimes for easy plotting. 
+Function to directly scrape data for indivudal sites or All sites from NADP website at different time intervals, and return this as a pandas dataframe. Also combines data from site info .csv files (e.g. site lat, long, county, state, etc.) and data .csv into a single dataframe. Converts string date-times into pandas datetimes for easy plotting. 
 
+```
+# -------------------Inputs: ----------------------------------------------------------
+#       siteid   - String corresponding to the NADP site ID you want data from or 'All' if
+#				you'd like to get data from all sites. Individual site names are typically
+#				len 4 strings like 'WY99'. Will error if site name doesn't exist. 
+#
+#       network   - String containing which network you'd like to get data from. 
+# 				Will push error if invalid network name. Valid options are: 
+#				    'NTN'   : National Trends network data 
+#				    'MDN'   : Mercury Deposition Network. 
+#                       'AIRMoN': Atmospheric Integrated Research Monitoring Network
+#                       'AMNet' : Atmospheric Mercury Network
+#                       'AMoN'  : Ammonia Monitoring Network
+#
+#       freq     - String containing the frequency of the data you'd like to retreive 
+#				for this site. Valid options are dependent on which network is chosen. 
+#                   Only 1 data frequency is available for AIRMon, AMNet, and AMoN. Therefore
+#                   this input is redundant for those networks. If data network is 
+#                   NTN or MDN, then valid options are as follows with brackets indicating the 
+#					supported networks for each data frequency. Valid options are as follows:
+#
+#						'weekly' 		   : weekly deposition data 	[NTN, MDN, ] ** Default if no freq is passed.**  
+#						'annual-cal-dep'  : annual deposition on calendar year [NTN, MDN]			
+#						'monthly'         : average monthly deposition data [NTN only]  
+#                             'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
+#						'annual-wy'       : annual deposition on water year  [NTN only]  
+#						'seasonal-conc'   : Pecip weighted seasonal concentrations [NTN only]  
+#						'seasonal-dep'    : Seasonal deposition [NTN only] 
+# 
+#     valstring   - Redundant input unless your network is 'MDN'. Options are: 
+#				 ''   - An empty string which will return only data which the NADP has 
+#                         determined to be valid. This is default. 
+#                   '-i'  - A string that will return all data (valid and invalid). 
+#                           These samples can be identified by the qrCode field, 
+#                           which will have a value of "C".
+#
+#     savepath    - Path to a driectory in which to save a pickle of this datafram. Default is empty which 
+#					does not save a pickle. Name of pickle file is auto generated based on network, siteid, 
+#                   and frequency of selected data. 
+#
+# -------------------Output: --------------------------------------------------------------- 
+#
+#      df       - pandas dataframe containing all csv data from the NADP. 
+#     
+#      NADP_NTN_weekly_WA99.pkl  - (OPTIONAL) a pickle file containing the dataframe, df, if a 
+#                                  savepath was passed as input.  
+```     
 ### NADP_date_string_converter(df):
 Function to identify "date like" columns in a dataframe (df) scraped from NADP data and convert them from strings of various formats to pandas datetime objects for easy use later. Output is just a dataframe with same columns as input df, but with date-like columns as datetime objs.
 
