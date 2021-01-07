@@ -36,7 +36,7 @@ Function to directly scrape data for indivudal sites or All sites from NADP webs
 #                   NTN or MDN, then valid options are as follows with brackets indicating the 
 #                   supported networks for each data frequency. Valid options are as follows:
 #
-#                      'weekly' 		   : weekly deposition data 	[NTN, MDN, ] ** Default if no freq is passed.**  
+#                      'weekly'          : weekly deposition data [NTN, MDN, ] ** Default if no freq is passed.**  
 #                      'annual-cal-dep'  : annual deposition on calendar year [NTN, MDN]			
 #                      'monthly'         : average monthly deposition data [NTN only]  
 #                      'annual-cal-conc' :  Pecip weighted annual concentrations on calendar year [NTN only]  
