@@ -51,13 +51,13 @@ def NADP_date_string_converter(df):
 
 def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath=''):
 
-	# Function to directly scrape data for indivudal sites or All sites from NADP website at difference 
+	# Function to directly scrape data for indivudal sites or All sites from NADP website at different
 	# time intervals, and return this as a pandas dataframe. Also combines 
 	# data from site info csv (e.g. site lat, long, county, state, etc.) and data csv into a 
-	# single data frame. Converts string date-times into pandas datetimes for easy plotting. 
+	# single dataframe. Converts string date-times into pandas datetimes for easy plotting. 
 	#
-	#  Written by Dr. Jessica D. Haskins, 11/13/2020,   github: https://github.com/jdhask/ 
-	#  Contact at jhaskins@alum.mit.edu 
+	# Written by Dr. Jessica D. Haskins, 11/13/2020,   github: https://github.com/jdhask/ 
+	# Contact at jhaskins@alum.mit.edu 
 	#
 	# NOTE: Data from NADP/NTN used in published works should abide by the NADP data  
 	#       use conditions (http://nadp.slh.wisc.edu/nadp/useConditions.aspx)
@@ -164,22 +164,21 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='')
 			if url is None: # Check to make sure the url exists: 
 				sys.exit('ERROR: frequency not defined. See valid inputs for freq.')
 			else:   # Read in data from that site and return it.  
-				print('Loading data... This can take ~30s-3mins. Faster for loading 1 site than All site data. Please wait! ')
-				df= pd.read_csv(url)
+				print('Loading data... This can take ~5s-3mins. Faster for loading data from 1 site than all site data. Please wait! ')
+				
+				df= pd.read_csv(url) # Read in the data from the specified URL 
+		
+				# rename siteID in s so its the same as keys as in df, so we can merge. 
+				s.rename(columns = {'siteid':'siteID'}, inplace = True) 
 
-				# Take info from site file and add it into the master data frame (site lat/lon info)
-				for (columnName, columnData) in s.iteritems():
-					if siteid !='All':
-						msk=(s.siteid==siteid) # Only pull data from site list for this site. 
-						df[columnName]=np.full((len(df.index),1), columnData[msk]) 
-					else: 
-						for j in range(0,len(s.siteid)): #Loop over each site and pull data for each. 
-							this_site=s.siteid[j]
-							msk=(s.siteid==this_site)  
-							df[columnName]=np.full((len(df.index),1), columnData[msk]) 
+				# Take info from site file and add it into the master dataframe (site lat/lon info)
+				df_out= df.merge(s, how='left', on='siteID')
 
 				# Convert all date related columns from strings to date-time objects for easy plotting. 
-				df_new= NADP_date_string_converter(df)
+				df_new= NADP_date_string_converter(df_out)
+
+				# Take all -9.00s (error values) and turn to NaNs: 
+				df_new.replace(to_replace=-9.00, value=np.NaN, inplace=True)
 
 				# If the user has passed a savepath variable, check to see if its valid, and save data as a pickle.  
 				isValidPath = os.path.isdir(savepath)  
@@ -192,12 +191,87 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='')
 					sys.exit('ERROR: Inputted SavePath is not a valid directory.')
 
 				return df_new # Return dataframe to user as output. 
-
-
 		else:
 			sys.exit('ERROR: The site name provided is not a valid site.')
 	else: 
 		sys.exit('ERROR: The network identified is not supported.')	
+
+
+def count_valids_since(df, column_name, year=1975, mon=1, day=1, savepath=''):
+
+	#  Function to count how many valid samples were taken at a site since a given date. 
+	#  May be useful for identifying which sites have robust records in a time period of interest. 
+	#
+	#  ######   Inputs: #########################################################################
+	# 
+	#   df             - a dataframe generated from NADP_date_grabber() 
+	#
+	#	column_name   - the column you'd like to count valids in. 
+	#
+	#	year(optional)-  Year you'd like to get valid points of data from. Default is 1975. 
+	#
+	#   mon (optional) - Month you'd like to get valid points of data from. Default is 1. 
+	#
+	#   day (optional) - Day you'd like to get valid points of data from. Default is 1. 
+	#
+	#   savepath (optional) - Path to a driectory in which to save a pickle of this datafram. Default is empty which 
+	#                   does not save a pickle. Name of pickle file is auto generated based on column name, date. 
+	#
+	#  ######   Outputs: #########################################################################
+	#
+	#    out     - Dataframe containing the site names and valid counts since your date. 
+	#			  Results presented in descending order with most valid points at top. 
+	# 
+	#  Written by Dr. Jessica D. Haskins, 1/12/2020,   github: https://github.com/jdhask/ 
+	#  Contact at jhaskins@alum.mit.edu 
+	# ----------------------------------------------------------------------------------------
+	import os 
+	import numpy as np 
+	import pandas as pd
+
+	sites=df.siteID.unique() # Get list of unique siteIDs. 
+	date1= datetime.datetime(year,mon,day) # Datetime object of date you'd like to count valids from. 
+
+	for i in range(0,len(sites)):  #Loop over each individual site. and (df.dateon > date1)
+		
+		msk1=df.index[df.siteID.str.match(sites[i])==True].tolist() # index vals of where we're looking at this site. 
+		msk2= df.index[df.dateon> date1].tolist() # index values of where the dates are when we want. 
+		msk=np.intersect1d(msk1, msk2) # must fit both conditions. 
+
+		sliced=df.iloc[msk] # values in df at site i since inputted date. 
+
+		valid=len(sliced[column_name]) -np.count_nonzero(np.isnan(sliced[column_name])) # number of valids at this site. 
+		
+		if i== 0: # Create array, of valid # since date indexed same as sites list. 
+			valids=valid
+		else: 
+			valids=np.append(valids, valid)
+
+		if i % 10 ==0: # Print a progress update occassionally. 
+			print('Progress:', np.round(i/len(sites)*10000)/100, '%')
+
+		i=i+1 # move to next site. 
+
+	# Create data frame with site name and valid counts: 
+	out=pd.DataFrame(sites, columns=['siteIDs']) 
+	out['Valid_n']= valids
+
+	# Sort by the sites with the most valid points. 
+	out.sort_values( 'Valid_n',axis=0, inplace=True, ascending=False, ignore_index=True)
+
+	# If the user has passed a savepath variable, check to see if its valid, and save data as a pickle.  
+	isValidPath = os.path.isdir(savepath)  
+	if isValidPath ==True and len(savepath)>=1: 
+		name='\\NADP_'+column_name+'_valids_since'+str(year)+'.pkl'
+		out.to_pickle(savepath+name)
+		print('File saved as: '+ savepath+name)
+	 
+	if isValidPath ==False and len(savepath)>=1:
+		sys.exit('ERROR: Inputted SavePath is not a valid directory.')
+
+	return out 
+
+
 
 
 
