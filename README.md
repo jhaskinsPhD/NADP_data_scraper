@@ -66,8 +66,13 @@ Function to directly scrape data for indivudal sites or All sites from NADP webs
 Function to identify "date like" columns in a dataframe (df) scraped from NADP data and convert them from strings of various formats to pandas datetime objects for easy use later. Output is just a dataframe with same columns as input df, but with date-like columns as datetime objs.
 
 ### get_sites(network):
-
 Function to list valid site names, name of site, and state in a given NADP network. 
+
+### count_valids_since(df, column_name, year=1975, mon=1, day=1, savepath='')
+Function to count how many valid samples in column_name were taken at all site since a given date, and save the siteIDs and 
+of valid data samples in a dataframe with an option to save it. This function may be useful for identifying 
+which sites have robust records in a time period of interest. Input df is that from the NADP_data_grabber for All sites data. 
+This function is redundant for dataframes with only 1 site's data contained within it. 
 
 ## Examples: 
 
@@ -90,7 +95,13 @@ plt.show()
 path='C:\\Users\\user\\Documents\\myNADPdirectory\\'
 df_all= NADP_data_grabber('All', 'NTN', savepath=path) 
 ```
-(4) Other examples: 
+
+(4) Determine which sites have the most valid nitrate records during 2020 until now. 
+```
+df= count_valids_since(df, 'NO3', year=2020, savepath=path)
+```
+
+(5) Other examples: 
 ```
 out1= NADP_data_grabber('WY99', 'NTN', freq='monthly') # monthly avg'd data for site WY99 from NTN 
 out2= NADP_data_grabber('WY96', 'NTN') # weekly data for site WY99 from NTN (native freq)
