@@ -5,6 +5,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 import os
+# does this really work if I edit it in GitKraken? 
 
 # Tell it where to save
 path='C:\\Users\\jhask\\OneDrive\\Documents\\Research\\mini-UROP'
