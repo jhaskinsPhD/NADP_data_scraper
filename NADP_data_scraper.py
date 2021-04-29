@@ -134,7 +134,7 @@ def get_tuesdays(month, year):
     for wk in range(0,len(tuesdays)):
         date_stamp.append(str(year)+'-'+str(month)+'-'+str(tuesdays[wk]) + ' 12:00')
         
-    return(date_stamp)
+    return date_stamp
      
 
 def aligntimes(df, min_monyr=[7,1978], max_monyr=[11,2020]):
@@ -174,7 +174,7 @@ def aligntimes(df, min_monyr=[7,1978], max_monyr=[11,2020]):
     min_dt= get_tuesdays(min_monyr[0],min_monyr[1])[0] # First tuesday of month
     
     # Get the date of the  last tuesday in the max mon/year 
-    max_dt= get_tuesdays(max_monyr[0],max_monyr[1])[-1] # last tuesday of month.
+    max_dt= get_tuesdays(max_monyr[0], max_monyr[1])[-1] # last tuesday of month.
 
     # Create a datetime index every Tuesday between the min/max date. 
     dts = pd.date_range(min_dt, max_dt, freq=str(7)+ 'D') 
@@ -242,7 +242,7 @@ def aligntimes(df, min_monyr=[7,1978], max_monyr=[11,2020]):
 
 
 def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
-                      aligntimes:bool = False, 
+                      align:bool = False, 
                       min_monyr=[7,1978], max_monyr=[11,2020]):
     """ Function to directly scrape data for individual sites or All sites from 
     NADP website at different time intervals, and return this as an xarray datset. 
@@ -296,7 +296,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
                       does not save a pickle. Name of pickle file is auto generated based on network, siteid,
                       and frequency of selected data.
                       
-        aligntimes -  Boolean of whether you'd like to align all of the data to the same time 
+        align     -  Boolean of whether you'd like to align all of the data to the same time 
                       index & save as a netcdf file indexed by (Time, SiteID). 
                       This is only relevant if pulling ALL data from the NTN. 
                       
@@ -395,27 +395,25 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
                     
                 # Align all of the times to a master time line if asked. 
                 # Currently only works for NTN and "all" data.. 
-                if (siteid=='All') and (network=='NTN') and (aligntimes==True):
+                if (siteid=='All') and (network=='NTN') and (align==True):
                     print('Aligning times of all NTN Data...')
-                    ds = aligntimes(df_new,min_monyr=min_monyr, max_monyr=min_monyr)
+                    ds_i = aligntimes(df_new, min_monyr=min_monyr, max_monyr=max_monyr)
                 else: 
                     print('Converting to X-Array, please wait...')
-                    ds = df_new.to_xarray()
+                    ds_i = df_new.to_xarray()
                 
                 # Attach the appropriate metadata to the dataset. 
                 print('Attaching Metadata...')
-                ds = attach_meta_data(ds, network)
+                ds = attach_meta_data(ds_i, network)
                 
-                # If the user has passed a savepath variable, check to see if its valid, and save data as a pickle.
+                #  Check to see if savepath is valid... or save to the cwd. 
                 isValidPath = os.path.isdir(savepath)
-                if isValidPath ==False:
+                if isValidPath == False:
                     savepath= os.getcwd()
-                    isValidPath = os.path.isdir(savepath)
-                        
-                if isValidPath ==True:
-                    name='\\NADP_'+network+'_'+freq+'_'+siteid+'.nc'
-                    ds.to_netcdf(savepath+name)
-                    print('File saved as: '+ savepath+name)
+
+                name='\\NADP_'+network+'_'+freq+'_'+siteid+'.nc'
+                ds.to_netcdf(savepath+name)
+                print('File saved as: '+ savepath+name)
 
                 return ds # Return the dataset 
         else:
