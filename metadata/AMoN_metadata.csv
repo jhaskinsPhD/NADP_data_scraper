@@ -1,0 +1,14 @@
+﻿Field,Description,Units
+NADPID,Unique NADP identifier of individual sample sets consisting of one or more sample replicates and a travel blank deployed together,
+SITEID,Two-letter location designator followed by a two digit number,
+REPLICATE,"Sample replicate (A, B, C) or travel blank (T)",
+STARTDATE,"e Start date and time of sample exposure, GMT",GMT
+ENDDATE,"End date and time of sample exposure, GMT",GMT
+EXPTIME,"Sample exposure time, minutes",minutes
+AIRVOL,"Sample volume, m³",m3
+EXTRACTVOL,"Filter extract solution volume, mL",mL
+NH4,"Measured ammonium ion concentration of filter extract, in mg/L of solution as NH4+ ; missing values are indicated by -9.00",mg/L
+CONC,"Gaseous ammonia concentration, µg/m³; missing values are indicated by -9.00",µg/m³;
+QR,Quality Rating Code: A fully qualified with no problems B valid data with minor problems C invalid data,
+NOTES,See: http://nadp.slh.wisc.edu/amon/sites/AMoNMetadata.pdf,
+CHNGDATE,Most recent date and time any data values were edited within the NADPID set,GMT

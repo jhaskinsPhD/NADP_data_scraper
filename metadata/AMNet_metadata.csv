@@ -1,0 +1,12 @@
+﻿Field,Description,Units
+SiteID,Site Identifier,
+CollStart,Date/Time of Collection Start,GMT
+CollEnd,Date/Time of Collection End,GMT
+CollTime,"Collection Time, Minutes",minutes
+PBM,"Average Particulate Bound Mercury concentration, picograms/m3 . Missing or invalid values are represented by -9.",picograms/m3
+PBMVal,"PBM Validity A or B = valid, C= invalid",
+GOM,"Average Gaseous Oxidized Mercury (GOM), picograms/m3 . Missing or invalid values are represented by -9.",picograms/m3
+GOMVal,"GOM Validity. A or B = valid, C= invalid",
+GEM,"Average Gaseous Elemental Mercury (GOM), nanograms/m3 . Missing or invalid values are represented by -9.",ng/m3
+GEMValPct,Per cent valid GEM measurements,%
+GEMValPct,"GEM Validity. A or B = valid, C= invalid",

@@ -1,0 +1,67 @@
+﻿Field,Description,Units
+SiteID, Site Identifier,
+Labno, Sample Identifier,
+DateOn,"Date on which the sample bucket was removed from the collector, reported in Greenwich Mean Time (GMT)YYYY-MM-DD hh:mm format",GMT
+DateOff,"Date on which the sample bucket was removed from the collector, reported in Greenwich Mean Time (GMT)YYYY-MM-DD hh:mm format",GMT
+yrMonth," Year and Month of sample midpoint, in YYYYMM format",YYYYMM
+pH," negative log of the hydrogen ion concentration as measured at the  CAL, in pH units",pH units
+conduc," Conductance of the precipitation sample as measured at the CAL, reported in microsiemens per centimeter.",microsiemens /cm
+flagCa, Limit of detection symbol (<) for Ca,
+Ca," Ca concentration, mg/L",mg/L
+flagMg, Limit of detection symbol (<) for Mg,
+Mg," Mg concentration, mg/L",mg/L
+flagK, Limit of detection symbol (<) for K,
+K," K concentration, mg/L",mg/L
+flagNa, Limit of detection symbol (<) for Na,
+Na," Na concentration, mg/L",mg/L
+flagNH4, Limit of detection symbol (<) for NH4,
+NH4," NH4 concentration, mg/L",mg/L
+flagNO3, Limit of detection symbol (<) for NO3,
+NO3," NO3 concentration, mg/L",mg/L
+flagCl, Limit of detection symbol (<) for Cl,
+Cl," Cl concentration, mg/L",mg/L
+flagSO4, Limit of detection symbol (<) for SO4,
+SO4," SO4 concentration, mg/L",mg/L
+flagBr, Limit of detection symbol (<) for Br,
+Br," Br concentration, mg/L ",mg/L
+svol," Volume of sample captured in the sample bucket, in ml.",mL
+ppt," Precipitation amount as measured by the recording rain gage, in
+mm. Trace amounts are indicated by -7.",mm
+subppt,"Precipitation amount used by NADP in calculating weighted-mean
+concentrations, depositions and precipitation totals, in mm. In
+most cases sub_ppt equals the recording raingage reading. Where
+the raingage reading is missing or invalid, the equivalent depth of
+the sample volume is used (for this conversion, the area of the
+sample bucket is 678.9 square centimeters)",mm
+valCode,"A code which indicates whether a sample is considered valid
+according to NADP/NTN data validation rules. In the case of a
+valid sample, the code indicates how the sample is used in
+calculations of weighted-mean concentrations, depositions and
+data completeness estimates.
+0 - invalid sample
+t - valid trace sample
+d - valid dry collection period
+w - valid sample of lab type w
+wa - valid sample of lab type wa
+wi - valid sample of lab type wi
+Only samples with valcodes of w, wa and wi are used by
+NADP/NTN in calculating weighted-mean concentrations and
+depositions.",
+inValCode,"A series of codes assigned to samples which are considered invalid
+by NADP/NTN for the purposes of computing weighted-mean
+concentrations, depositions and data completeness estimates.
+The codes indicate the reasons for invalidation.
+b - bulk sample (Collector was open continuously.)
+u - undefined sample (Collector was open for > 6 hours and
+less than the entire sampling interval when no precipitation
+was occurring.)
+f - field protocol departure
+c - contaminated sample
+v - inadequate volume for analysis
+e - extended sampling interval (> 8 days)
+l - lab error
+i - incomplete chemical analyses
+n - no sample collected
+p - precipitation amount unknown
+x - reasons other than described above",
+modifiedOn,Date the record was last modified,GMT

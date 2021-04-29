@@ -1,0 +1,29 @@
+﻿Field,Description,Units
+SiteID,Site Identifier,
+Labno,Sample Identifier,
+DateOn,"Date on which the sample bucket was installed on the collector, reported in Greenwich Mean Time (GMT)YYYY-MM-DD :mm format",GMT
+DateOff,"Date on which the sample bucket was removed from the collector, reported in Greenwich Mean Time (GMT)YYYY-MM-DD hh:mm format",GMT
+subppt,"Precipitation amount used by NADP in calculating weighted-mean concentrations, depositions and precipitation totals, in mm. In most cases sub_ppt equals the NWS stick raingage reading. Where the raingage reading is a trace amount, a value of 0.127mm is assigned; in cases where the NWS stick raingage reading is missing or invalid, the recording raingage amount is used; in cases where both raingage readings are missing or invalid, the equivalent depth of the sample volume is used (for this conversion, the area of the sample bucket is 678.9 square centimeters)",mm
+pptNWS,"Precipitation amount as measured by the NWS stick rain gage, in mm. Trace amounts are indicated by -7.",mm
+pptBel,"Precipitation amount as
+measured by the recording
+rain gage, in mm. Trace
+amounts are indicated by -7",mm
+svol,"Volume of sample captured in the sample bucket, in ml.",mL
+LabType,"Labtype - A code indicating the condition of the sample upon arrival at the CAL W: Sample volume of 35 mL or more. WI: Sample volume of 10 - 35 mL; chemical measurements are made as volume permits in the following order: pH, Conductance, {NH4, PO4}, {Cl, NO3, SO4}, and {Ca, Mg, Na, K}. D: Sample volume of 0 - 10 mL. Sample was not shipped.",
+QRcode,"Quality rating code. A code indicating the relative quality of the sample: A: Samples of the highest quality did not contain anything but water, all protocols were followed, and there is no indication of compromised integrity of the sample. B:Samples of unknown quality may contain contaminants such as plant matter or insects, or are potentially contaminated due to handling errors. C: Samples of the lowest quality are either of undefined duration, contain bird droppings, or have some other indication of compromised quality",
+SP,Sample protocol code. A code indicating departures from standard sample collection procedures that may have compromised sample integrity: (blank):No identifiable departures U: Undefined sample type Q: Quality assurance sample,
+SL,Sample level code. A code indicating departures from field or laboratory standard,
+pHlab,"negative log of the hydrogen ion concentration as measured at the CAL, in pH units",pH units
+pHfield,"pH of the sample as measured in the field laboratory, reported as the negative log of hydrogen ion concentration.",pH units
+conducLab,"Conductance of the precipitation sample as measured at the CAL, reported in microsiemens per centimeter.",microsiemens/cm
+conducField,"Conductance of the precipitation sample as measured in the field laboratory, reported in microsiemens per centimeter",microsiemens/cm
+Ca,"Ca concentration, mg/L",mg/L
+Mg,"Mg concentration, mg/L",mg/L
+K,"Kconcentration, mg/L",mg/L
+Na,"Na concentration, mg/L",mg/L
+NH4,"NH4concentration, mg/L",mg/L
+NO3,"NO3 concentration, mg/L",mg/L
+Cl,"Cl concentration, mg/L",mg/L
+SO4,"SO4 concentration, mg/L",mg/L
+PO4,"PO4 concentration, mg/L",mg/L

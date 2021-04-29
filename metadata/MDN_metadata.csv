@@ -1,0 +1,19 @@
+﻿Field,Description,Units
+siteID, 2-letter state or province designator followed by a two digit number.,
+dateON,"(mm/dd/yyyy hh:mm), GMT",GMT
+dateoff," (mm/dd/yyyy hh(mm/dd/yyyy hh:mm), GMT",GMT
+rgPpt," Precipitation amount as measured by the rain gage in millimeters. Precipitation amount as measured by the rain gage in millimeters.
+Trace amounts are indicated by -7.00 and missing amount by -9.00.   ",mm
+sVol," Sample Volume, ml. Missing amounts are indicated by a -9.00.",mL
+subppt,"Rain gage precipitation amount, if available, in mm. If the rain gage value (RGPPT) is missing, the precipitation amount in mm is calculated from the net sample volume caught in the sample bottle. A value of 0.127 is inserted for Trace sample types. Missing amounts are indicated by a -9.00",mm
+HgConc,"Total mercury concentration reported by the lab in ng/L. Missing
+amounts are indicated by a -9.00 ",ng/L
+HgDep," Total mercury deposition, ng/m2 . The product of SUBPPT and
+HGCONC. Missing amounts are indicated by a -9.00 ",ng/m2
+qr,"A fully qualified with no problems B valid data with minor problems, used for summary statistics C invalid data, not used for summary statistics - no sample submitted for this time period",
+sampletype,"W wet sample, measurable precipitation (> 0.01 in.) on the rain gauge (RG) or net bottle catch (BC) > 1.5 mL if RG data are missing. Concentration and deposition data are reported unless the QR Code is C. D dry sample The RG measured a 0 precipitation amount net, or if the RG is missing, the BC < 1.5 mL . No concentration data are reported and are indicated by a -9.00. RGPPT, SUBPPT, and HGDEP are set to zero. T trace sample, used when the rain gage detects that an unmeasurable amount of precipitation occurred. No Hg concentration or depositions are shown. SUBPPT is set to 0.127 mm -- unknown sample type. Precipitation amount is unknown.",
+notes,Please see : http://nadp.slh.wisc.edu/data/mdn/meta/MDNdata.pdf,
+yrmonth," Indicated theIndicated the year and month at the midpoint of the
+sample. Used for determining which samples to use to compute annual and
+seasonal aggregates.  year and month at the midpoint of the",YYYYMM
+DATEMOD, Date when the record was last modified.,DD/MM/YYYY
