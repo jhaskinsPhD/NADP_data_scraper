@@ -242,7 +242,7 @@ def aligntimes(df, min_monyr=[7,1978], max_monyr=[11,2020]):
 
 
 def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
-                      align:bool = False, 
+                      alignme:bool = False, 
                       min_monyr=[7,1978], max_monyr=[11,2020]):
     """ Function to directly scrape data for individual sites or All sites from 
     NADP website at different time intervals, and return this as an xarray datset. 
@@ -296,7 +296,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
                       does not save a pickle. Name of pickle file is auto generated based on network, siteid,
                       and frequency of selected data.
                       
-        align     -  Boolean of whether you'd like to align all of the data to the same time 
+        alignme     -  Boolean of whether you'd like to align all of the data to the same time 
                       index & save as a netcdf file indexed by (Time, SiteID). 
                       This is only relevant if pulling ALL data from the NTN. 
                       
@@ -307,7 +307,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
         min_monyr -   array of [month, year] of end of when you want to save aligned data. 
                       Default is to get data up until end of current data
                       (last Tuesday of Nov 2020) as of 4/18/2021. 
-                      Only a relevant argument if aligntimes is True. 
+                      Only a relevant argument if alignme is True. 
      
     Output: 
     -------
@@ -318,7 +318,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
     
     Examples: 
     ---------
-      out= NADP_data_grabber('all', 'NTN', aligntimes=True) # Get data for all sites from NTN (native freq),
+      out= NADP_data_grabber('all', 'NTN', alignme=True) # Get data for all sites from NTN (native freq),
                                               and align to a common times line across all sites. 
       out= NADP_data_grabber('WY99', 'NTN', freq='monthly') # monthly avg'd data for site WY99 from NTN
       out= NADP_data_grabber('WY96', 'NTN') # weekly data for site WY99 from NTN (native freq)
@@ -395,7 +395,7 @@ def NADP_data_grabber(siteid, network, freq='native', valstring='', savepath='',
                     
                 # Align all of the times to a master time line if asked. 
                 # Currently only works for NTN and "all" data.. 
-                if (siteid=='All') and (network=='NTN') and (align==True):
+                if (siteid=='All') and (network=='NTN') and (alignme==True):
                     print('Aligning times of all NTN Data...')
                     ds_i = aligntimes(df_new, min_monyr=min_monyr, max_monyr=max_monyr)
                 else: 
